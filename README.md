@@ -14,3 +14,19 @@ The algorithm is actually pretty simple, and works in a following way:
 1. Each agent will be represented as a vector in R^n.
 
 ### Steps
+(All of the steps are quite abstract, so check the code)
+1. Create a given number of agents from the square defined around center of the axis.
+2. Calculate the utility (closeness to a certain point, infinity, or -infinity) of each agent.
+    1. Utulity function has to be strictly positive, so shift the utility if needed. For example, if you are trying to find maximum of a function and some points are negative, increase all the utilities by a contant, such that every utility will be greater than 5 (chosen arbitrary).
+3. Calculate the probability of reproduction for each agent as its utility divided by the total (sum of all) utility.
+4. Until you have created the same number of new agents as there were previously:
+    1. Order all agents by their probability (break ties arbitrarily) (each probability defines a section) and generate a number from uniform (0,1).
+    2. Pick the agent to which this number corresponds.
+    3. Roll again and pick another agent.
+    4. Roll to check for the probability of crossover.
+        1. If true, roll uniform on length of the vector and create two new crossed agents.
+        2. Otherwise put both agents "as is" to the new array.
+5. Go over all agents and for each entry of each vector roll uniform to find the probability of mutation.
+    1. If true, roll normal with expected value of the number you mutate, and predefined variance.
+    2. Otherwise do nothing.
+6. Repeat until stop condition is reached.
